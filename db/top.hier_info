@@ -1,0 +1,5 @@
+|top
+UART_RXD => ~NO_FANOUT~
+UART_TXD => ~NO_FANOUT~
+
+
