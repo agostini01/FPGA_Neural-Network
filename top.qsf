@@ -48,15 +48,18 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
-set_global_assignment -name VHDL_FILE source_files/top.vhd
-set_global_assignment -name VHDL_FILE source_files/neuron.vhd
-set_global_assignment -name VHDL_FILE source_files/neural_net.vhd
-set_global_assignment -name VHDL_FILE source_files/layer.vhd
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VHDL_FILE source_files/fixpoint_pkg/float_pkg_c.vhdl
+set_global_assignment -name VHDL_FILE source_files/fixpoint_pkg/fixed_pkg_c.vhdl
+set_global_assignment -name VHDL_FILE source_files/fixpoint_pkg/fixed_float_types_c.vhdl
+set_global_assignment -name VHDL_FILE source_files/top.vhd
+set_global_assignment -name VHDL_FILE source_files/neuron.vhd
+set_global_assignment -name VHDL_FILE source_files/neural_net.vhd
+set_global_assignment -name VHDL_FILE source_files/layer.vhd
 set_global_assignment -name VHDL_FILE source_files/neural_net_pkg.vhd
 set_global_assignment -name VHDL_FILE source_files/generic_layer.vhd
 set_global_assignment -name VHDL_FILE source_files/generic_neuron.vhd
