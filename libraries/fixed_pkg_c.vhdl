@@ -11,8 +11,13 @@
 --  synthesis tools.  Please note the "%%%" comments.  These are where we
 --  diverge from the VHDL-200X LRM.
 -- --------------------------------------------------------------------
+<<<<<<< HEAD
 -- Version    : $Revision: 1.21 $
 -- Date       : $Date: 2007/09/26 18:08:53 $
+=======
+-- Version    : $Revision: 2.0 $
+-- Date       : $Date: 2011/01/26 15:55:27 $
+>>>>>>> fbcbarbosa-RS-232
 -- --------------------------------------------------------------------
 
 use STD.TEXTIO.all;
@@ -1455,8 +1460,13 @@ end package fixed_pkg;
 -- Proposed package body for the VHDL-200x-FT fixed_pkg package
 -- (Fixed point math package)
 -- This package body supplies a recommended implementation of these functions
+<<<<<<< HEAD
 -- Version    : $Revision: 1.21 $
 -- Date       : $Date: 2007/09/26 18:08:53 $
+=======
+-- Version    : $Revision: 2.0 $
+-- Date       : $Date: 2011/01/26 15:55:27 $
+>>>>>>> fbcbarbosa-RS-232
 --
 --  Created for VHDL-200X-ft, David Bishop (dbishop@vhdl.org)
 -------------------------------------------------------------------------------
@@ -1606,7 +1616,11 @@ package body fixed_pkg is
     ('U', 'X', '0', '1', 'X', 'X', '0', '1', '1'),  -- | H |
     ('1', '1', '1', '1', '1', '1', '1', '1', '1')   -- | - |
     );
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> fbcbarbosa-RS-232
   constant no_match_logic_table : stdlogic_table := (
     -----------------------------------------------------
     -- U    X    0    1    Z    W    L    H    -         |   |  
@@ -1725,7 +1739,11 @@ package body fixed_pkg is
       for i in LX'low to LX'high loop
         result1 := \?/=\ (LX(i), RX(i));
         if result1 = 'U' then
+<<<<<<< HEAD
           return 'U';
+=======
+          result := 'U';
+>>>>>>> fbcbarbosa-RS-232
         elsif result1 = 'X' or result = 'X' then
           result := 'X';
         else
@@ -2878,7 +2896,11 @@ package body fixed_pkg is
       lslv       := to_uns (lresize);
       rslv       := to_uns (rresize);
       result_slv := lslv + rslv + cx;
+<<<<<<< HEAD
       c_out      := result_slv(left_index);
+=======
+      c_out      := result_slv(left_index-right_index);
+>>>>>>> fbcbarbosa-RS-232
       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
                          left_index-1, right_index);
     end if;
@@ -2909,7 +2931,11 @@ package body fixed_pkg is
       lslv       := to_s (lresize);
       rslv       := to_s (rresize);
       result_slv := lslv + rslv + cx;
+<<<<<<< HEAD
       c_out      := result_slv(left_index);
+=======
+      c_out      := result_slv(left_index-right_index);
+>>>>>>> fbcbarbosa-RS-232
       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
                          left_index-1, right_index);
     end if;
@@ -8375,4 +8401,8 @@ package body fixed_pkg is
       fraction => fraction);
   end function to_SFix;
 
+<<<<<<< HEAD
 end package body fixed_pkg;
+=======
+end package body fixed_pkg;
+>>>>>>> fbcbarbosa-RS-232
