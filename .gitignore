@@ -1,4 +1,6 @@
+*~
+/.gitignore.swp
 *.bak
-db/*
-incremental_db/*
-output_files/*
+/db/
+/incremental_db/
+/output_files/
