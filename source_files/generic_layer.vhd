@@ -12,7 +12,8 @@ entity GENERIC_LAYER is
 	port		(
 				INPUT		:in INT_ARRAY(0 to N);
 				CONTROL	:in std_logic;
-				OUTPUT	:out INT_ARRAY(0 to M)
+				OUTPUT	:out INT_ARRAY(0 to M);
+				W_B_ARRAY_2D: in FIX_ARRAY_2D(0 to (N+1))
 				);
 				
 end GENERIC_LAYER;
@@ -26,12 +27,12 @@ architecture STRUCTURE of GENERIC_LAYER is
 		port		(
 					INPUT		:in INT_ARRAY(0 to N);
 					CONTROL	:in std_logic;
-					OUTPUT	:out integer
+					OUTPUT	:out integer;
+					W_B_ARRAY:in FIX_ARRAY(0 to (N+1))
 					);
 	end component;
 	
 	begin
-	
 		-- All neurons get all input, each neuron has a specific output(I)
 		GEN_NEURONS: 
 		for I in 0 to M generate
@@ -43,7 +44,9 @@ architecture STRUCTURE of GENERIC_LAYER is
 				port map 	(
 								INPUT,
 								CONTROL,
-								OUTPUT(I)
+								OUTPUT(I),
+								W_B_ARRAY_2D(I)
+								
 								);
 		end generate GEN_NEURONS;
 									
