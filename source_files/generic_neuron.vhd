@@ -37,7 +37,7 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 				if CONTROL = '1' then
 				
 					for I in 0 to N loop 
-						NEWVALUE := INPUT(I)*WEIGHTS(I);
+						NEWVALUE := NEWVALUE + INPUT(I)*WEIGHTS(I);
 					end loop;
 					
 					NEWVALUE := NEWVALUE + BIAS;

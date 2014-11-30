@@ -20,7 +20,7 @@ package NN_PKG is
 			constant OUT_PERCEPTRONS 		: integer := 4;
 			
 			type FIX_ARRAY is array (integer range <>) of sfixed;
-			constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,3,-3);
+			constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
 
 
 
