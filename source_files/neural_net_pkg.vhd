@@ -18,11 +18,11 @@ package NN_PKG is
 			constant INPUT_PERCEPTRONS 	: integer := 4;
 			constant HIDDEN_PERCEPTRONS 	: integer := 4;
 			constant OUT_PERCEPTRONS 		: integer := 4;
+			constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
 			
 			type FIX_ARRAY is array (integer range <>) of sfixed;
-			constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
-
-
+			type FIX_ARRAY_2D is array (integer range <>) of FIX_ARRAY;
+			type FIX_ARRAY_3D is array (integer range <>) of FIX_ARRAY_2D;
 
 			
 

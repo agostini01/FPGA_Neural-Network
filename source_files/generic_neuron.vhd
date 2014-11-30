@@ -10,7 +10,8 @@ entity GENERIC_NEURON is
 	port	(
 			INPUT		:in INT_ARRAY(0 to N);
 			CONTROL	:in std_logic;
-			OUTPUT	:out integer
+			OUTPUT	:out integer;
+			W_B_ARRAY:in FIX_ARRAY(0 to (N+1))
 			);
 end GENERIC_NEURON;
 
