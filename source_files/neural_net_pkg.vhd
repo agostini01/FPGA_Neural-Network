@@ -1,7 +1,7 @@
 -------------------------------------------------------
 -- Design Name : User Pakage
 -- File Name   : neural_net_pkg.vhd
--- Function    : Defines function for LFSR
+-- Function    : 
 -- Coder       : Agostini, N. & Barbosa, F.
 -------------------------------------------------------
 library ieee;
@@ -23,7 +23,11 @@ package NN_PKG is
 			type FIX_ARRAY_2D is array (integer range <>) of FIX_ARRAY;
 			type FIX_ARRAY_3D is array (integer range <>) of FIX_ARRAY_2D;
 
+
 			type T_WINE_DATASET is array (0 to 177, 0 to 12) of sfixed;
+
+			
+
 
 end;
 
