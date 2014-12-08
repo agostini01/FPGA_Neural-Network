@@ -10,9 +10,9 @@ entity GENERIC_LAYER is
 				);
 	
 	port		(
-				INPUT		:in INT_ARRAY(0 to N);
+				INPUT		:in FIX_ARRAY(0 to N);
 				CONTROL	:in std_logic;
-				OUTPUT	:out INT_ARRAY(0 to M);
+				OUTPUT	:out FIX_ARRAY(0 to M);
 				W_B_ARRAY_2D: in FIX_ARRAY_2D(0 to (N+1))
 				);
 				
@@ -25,9 +25,9 @@ architecture STRUCTURE of GENERIC_LAYER is
 					);
 					
 		port		(
-					INPUT		:in INT_ARRAY(0 to N);
+					INPUT		:in FIX_ARRAY(0 to N);
 					CONTROL	:in std_logic;
-					OUTPUT	:out integer;
+					OUTPUT	:out S_SFIXED;
 					W_B_ARRAY:in FIX_ARRAY(0 to (N+1))
 					);
 	end component;

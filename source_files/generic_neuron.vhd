@@ -10,23 +10,23 @@ entity GENERIC_NEURON is
 	port	(
 			INPUT		:in INT_ARRAY(0 to N);
 			CONTROL	:in std_logic;
-			OUTPUT	:out integer;
+			OUTPUT	:out S_SFIXED;
 			W_B_ARRAY:in FIX_ARRAY(0 to (N+1))
 			);
 end GENERIC_NEURON;
 
 architecture BEHAVIOUR of GENERIC_NEURON is
 	signal WEIGHTS : FIX_ARRAY(0 to N);
-	signal BIAS		: sfixed;
+	signal BIAS		: S_SFIXED;
 
 	begin
 		--initialization
 		GEN_WEIGHTS:
 			for I in 0 to N generate 
-				WEIGHTS(I)<= to_sfixed(6.5 ,FIX_SIZE);
+				WEIGHTS(I)<= W_B_ARRAY(I);
 			end generate GEN_WEIGHTS;
 		
-		BIAS <= to_sfixed(6.5 ,FIX_SIZE);
+		BIAS <= W_B_ARRAY(N+1);
 		
 		FORWARDPROPAGATION: process	(
 												INPUT,
@@ -34,7 +34,7 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 												)
 			variable NEWVALUE: sfixed;
 			begin
-				NEWVALUE := to_sfixed(0 ,FIX_SIZE);
+				NEWVALUE := to_sfixed(0 ,F_U_SIZE,F_L_SIZE);
 				if CONTROL = '1' then
 				
 					for I in 0 to N loop 
@@ -45,7 +45,7 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 				else
 					NULL;
 				end if;
-				OUTPUT <= to_integer(NEWVALUE);
+				OUTPUT <= NEWVALUE;
 		end process;
 		
 		

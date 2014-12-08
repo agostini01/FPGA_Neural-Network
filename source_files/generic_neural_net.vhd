@@ -8,9 +8,9 @@ entity GENERIC_NEURAL_NET is
 				);
 	
 	port		(
-				INPUT													:in INT_ARRAY(0 to N_I);
+				INPUT													:in FIX_ARRAY(0 to N_I);
 				CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:in std_logic;
-				OUTPUT												:out INT_ARRAY(0 to N_O);
+				OUTPUT												:out FIX_ARRAY(0 to N_O);
 				START, CLK											:in std_logic;
 				W_B_ARRAY_3D: in FIX_ARRAY_3D(0 to (2))
 				);
@@ -18,8 +18,8 @@ entity GENERIC_NEURAL_NET is
 end GENERIC_NEURAL_NET;
 
 architecture STRUCTURE of GENERIC_NEURAL_NET is
-	signal SECOND 				:INT_ARRAY(0 to N_I);
-	signal THIRD 				:INT_ARRAY(0 to N_H);
+	signal SECOND 				:FIX_ARRAY(0 to N_I);
+	signal THIRD 				:FIX_ARRAY(0 to N_H);
 	
 	component GENERIC_LAYER
 	generic	(
@@ -27,9 +27,9 @@ architecture STRUCTURE of GENERIC_NEURAL_NET is
 				);
 	
 	port		(
-				INPUT		:in INT_ARRAY(0 to N);
+				INPUT		:in FIX_ARRAY(0 to N);
 				CONTROL	:in std_logic;
-				OUTPUT	:out INT_ARRAY(0 to M);
+				OUTPUT	:out FIX_ARRAY(0 to M);
 				W_B_ARRAY_2D: in FIX_ARRAY_2D(0 to (N+1))
 				);
 	end component;

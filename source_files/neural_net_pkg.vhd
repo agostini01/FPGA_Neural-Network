@@ -17,7 +17,10 @@ package NN_PKG is
 			constant INPUT_PERCEPTRONS 	: natural := 4;
 			constant HIDDEN_PERCEPTRONS 	: natural := 4;
 			constant OUT_PERCEPTRONS 		: natural := 4;
-			constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
+			
+			constant F_U_SIZE : integer :=11;
+			constant F_L_SIZE : integer :=-4;
+		--	constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
 			type INT_ARRAY is array (natural range <>) of natural;
 			
 			subtype S_SFIXED is sfixed(11 downto -4);
