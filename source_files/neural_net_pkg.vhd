@@ -14,16 +14,16 @@ library ieee;
 package NN_PKG is
 
 
-			constant INPUT_PERCEPTRONS 	: natural := 4;
+			constant INPUT_PERCEPTRONS 	: natural := 13;
 			constant HIDDEN_PERCEPTRONS 	: natural := 4;
-			constant OUT_PERCEPTRONS 		: natural := 4;
+			constant OUT_PERCEPTRONS 		: natural := 3;
 			
 			constant F_U_SIZE : integer :=11;
 			constant F_L_SIZE : integer :=-4;
 		--	constant FIX_SIZE 	: sfixed := to_sfixed(6.5 ,5,-2);
 			type INT_ARRAY is array (natural range <>) of natural;
 			
-			subtype S_SFIXED is sfixed(11 downto -4);
+			subtype S_SFIXED is sfixed(F_U_SIZE downto F_L_SIZE);
 			type FIX_ARRAY is array (natural range <>) of S_SFIXED;
 			
 			subtype IN_FIX_ARRAY is FIX_ARRAY  (0 to (INPUT_PERCEPTRONS-1));
