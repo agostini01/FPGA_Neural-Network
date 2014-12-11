@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use work.NN_PKG.all;
+use work.NN_TYPES_pkg.all;
 
 entity TOP is
 	port	(
@@ -11,11 +11,11 @@ entity TOP is
 end TOP;
 
 architecture STRUCTURE of TOP is
-	signal CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;
 	
-	signal	INPUT													: FIX_ARRAY(0 to INPUT_PERCEPTRONS);
-	signal	OUTPUT												: FIX_ARRAY(0 to OUT_PERCEPTRONS);
-	signal	W_B_ARRAY_3D										: FIX_ARRAY_3D(0 to 2);
+	-- Signals for the NEURAL NETWORK
+	signal 	CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;	
+	signal	INPUT													: ARRAY_OF_SFIXED;
+	signal	OUTPUT												: ARRAY_OF_SFIXED;
 	
 	component NEURAL_NET
 		port	(
@@ -28,15 +28,17 @@ architecture STRUCTURE of TOP is
 	
 	component GENERIC_NEURAL_NET 
 		generic	(
-					N_I,N_H,N_O : natural -- N: Number of inputs; M: Number of Neurons/outputs
+					NUMBER_OF_INPUT_NEURONS : natural;
+					NUMBER_OF_HIDDEN_NEURONS : natural;
+					NUMBER_OF_OUTPUT_NEURONS : natural;
+					WEIGHTS_MATRIX : FIXED_WEIGHTS_MATRIX
 					);
 		
 		port		(
-					INPUT													:in FIX_ARRAY(0 to N_I);
+					INPUT													:in ARRAY_OF_SFIXED;
 					CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:in std_logic;
-					OUTPUT												:out FIX_ARRAY(0 to N_O);
 					START, CLK											:in std_logic;
-					W_B_ARRAY_3D										:in FIX_ARRAY_3D(0 to 2)
+					OUTPUT												:out ARRAY_OF_SFIXED
 					);
 
 	end component;
@@ -63,15 +65,17 @@ architecture STRUCTURE of TOP is
 		
 		GEN_NET: GENERIC_NEURAL_NET 
 		generic map	(
-						INPUT_PERCEPTRONS,HIDDEN_PERCEPTRONS,OUT_PERCEPTRONS
+						NUMBER_OF_INPUT_NEURONS		=> PERCEPTRONS_INPUT,
+						NUMBER_OF_HIDDEN_NEURONS	=> PERCEPTRONS_HIDDEN,
+						NUMBER_OF_OUTPUT_NEURONS	=> PERCEPTRONS_OUTPUT,
+						WEIGHTS_MATRIX=> NULL
 						)
 		
 		port map		(
-						INPUT,
-						CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT,
-						OUTPUT,
-						START, CLK,
-						W_B_ARRAY_3D
+						INPUT => INPUT,
+						CONTROL_IN => CONTROL_IN, CONTROL_HIDDEN => CONTROL_IN, CONTROL_OUT => CONTROL_IN,
+						START => START, CLK => CLK,
+						OUTPUT=>	OUTPUT
 						);
 											
 end STRUCTURE;
