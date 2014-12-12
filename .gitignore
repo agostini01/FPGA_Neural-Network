@@ -6,3 +6,9 @@
 /simulation/
 top.jdi
 top.qws
+serial.done
+serial.flow.rpt
+serial.map.rpt
+serial.map.summary
+serial.qsf
+serial_description.txt

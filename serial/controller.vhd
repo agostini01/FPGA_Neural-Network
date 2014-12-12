@@ -18,8 +18,14 @@ entity controller is
 		txData	:	out std_logic_vector(7 downto 0);		
 		
 		-- LEDs (for debugging)
-		LEDR		: 	out std_logic_vector (17 downto 0)
-		);
+		LEDR		: 	out std_logic_vector (17 downto 0);
+		
+		-- control ports
+		start		: 	out std_logic;		-- 0 - stop / 1 - start neural net
+		flow		: 	out std_logic;		-- 0 - back propagation / 1 - forward propagation
+		sample	:	out std_logic_vector (7 downto 0);
+		result	:	in std_logic_vector (2 downto 0)
+	);
 		
 end controller;
 
