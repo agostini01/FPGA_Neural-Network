@@ -10,12 +10,12 @@ library ieee;
 
 package NN_TYPES_pkg is
 
-			constant	PERCEPTRONS_INPUT 	: natural := 4;	-- Number of input neurons
-			constant	PERCEPTRONS_HIDDEN 	: natural := 4;	-- Number of hidden neurons
+			constant	PERCEPTRONS_INPUT 	: natural := 13;	-- Number of input neurons
+			constant	PERCEPTRONS_HIDDEN 	: natural := 3;	-- Number of hidden neurons
 			constant	PERCEPTRONS_OUTPUT 	: natural := 3;	-- Number of output neurons
 			
-			constant	U_SIZE : integer :=4;		--bits before decimal point
-			constant	L_SIZE : integer :=-8;	--bits after decimal point
+			constant	U_SIZE : integer :=8;		--bits before decimal point
+			constant	L_SIZE : integer :=-10;		--bits after decimal point
 			
 			------------------------------------------------------------------------------
 			subtype	CONSTRAINED_SFIXED 			is sfixed(U_SIZE downto L_SIZE);
@@ -24,12 +24,12 @@ package NN_TYPES_pkg is
 			type 		ARRAY_OF_SFIXED 				is array (natural range <>) of CONSTRAINED_SFIXED;
 						
 			subtype 	INPUT_IN_VALUES 				is ARRAY_OF_SFIXED  (0 to (PERCEPTRONS_INPUT-1));		--input values for in layer
-			subtype 	HIDDEN_IN_VALUES				is ARRAY_OF_SFIXED  (0 to (PERCEPTRONS_HIDDEN-1));		--input values for hidden layer
-			subtype 	OUTPUT_IN_VALUES				is ARRAY_OF_SFIXED  (0 to (PERCEPTRONS_OUTPUT-1));		--input values for output layer
+			subtype 	HIDDEN_IN_VALUES				is ARRAY_OF_SFIXED  (0 to (PERCEPTRONS_INPUT-1));		--input values for hidden layer
+			subtype 	OUTPUT_IN_VALUES				is ARRAY_OF_SFIXED  (0 to (PERCEPTRONS_HIDDEN-1));		--input values for output layer
 			
 			subtype 	INPUT_NEURON_WEIGHTS 		is ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT));		-- Weights + bias
-			subtype 	HIDDEN_NEURON_WEIGHTS 		is ARRAY_OF_SFIXED (0 to (PERCEPTRONS_HIDDEN));		-- Weights + bias
-			subtype 	OUTPUT_NEURON_WEIGHTS 		is ARRAY_OF_SFIXED (0 to (PERCEPTRONS_OUTPUT));		-- Weights + bias
+			subtype 	HIDDEN_NEURON_WEIGHTS 		is ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT));		-- Weights + bias
+			subtype 	OUTPUT_NEURON_WEIGHTS 		is ARRAY_OF_SFIXED (0 to (PERCEPTRONS_HIDDEN));		-- Weights + bias
 			
 			------------------------------------------------------------------------------
 			type 		LAYER_WEIGHTS 					is array (natural range <>) 				of ARRAY_OF_SFIXED(open);

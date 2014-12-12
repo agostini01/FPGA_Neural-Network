@@ -21,7 +21,7 @@ end GENERIC_LAYER;
 
 architecture STRUCTURE of GENERIC_LAYER is
 	
-	component NEURON
+	component GENERIC_NEURON
 		generic	(
 					NUMBER_OF_INPUTS : natural;
 					NEURON_WEIGHTS : ARRAY_OF_SFIXED
@@ -42,7 +42,7 @@ architecture STRUCTURE of GENERIC_LAYER is
 		-- All neurons get all input, each neuron has a specific output(I) and weight(I)
 		GEN_NEURONS: 
 		for I in 0 to (NUMBER_OF_NEURONS-1) generate
-			NX: NEURON
+			NX: GENERIC_NEURON
 				generic map	(
 								NUMBER_OF_INPUTS=> NUMBER_OF_INPUTS,
 								NEURON_WEIGHTS=> LAYER_WEIGHTS_VALUES(I)

@@ -20,8 +20,8 @@ entity GENERIC_NEURAL_NET is
 end GENERIC_NEURAL_NET;
 
 architecture STRUCTURE of GENERIC_NEURAL_NET is
-	signal SECOND 				:ARRAY_OF_SFIXED;
-	signal THIRD 				:ARRAY_OF_SFIXED;
+	signal SECOND 				:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_INPUT-1));
+	signal THIRD 				:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_HIDDEN-1));
 	
 	component GENERIC_LAYER
 		generic	(

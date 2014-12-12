@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use work.NN_TYPES_pkg.all;
+use work.NN_CONSTANTS_pkg.all;
 
 entity TOP is
 	port	(
@@ -14,8 +15,8 @@ architecture STRUCTURE of TOP is
 	
 	-- Signals for the NEURAL NETWORK
 	signal 	CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;	
-	signal	INPUT													: ARRAY_OF_SFIXED;
-	signal	OUTPUT												: ARRAY_OF_SFIXED;
+	signal	INPUT													: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT-1)) := A_SAMPLE_INPUT;
+	signal	OUTPUT												: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_HIDDEN-1));
 	
 	component NEURAL_NET
 		port	(
@@ -48,11 +49,6 @@ architecture STRUCTURE of TOP is
 		CONTROL_HIDDEN<='1';
 		CONTROL_OUT<='1';
 		
-		
-		--INPUT <= ;
-		
-		--W_B_ARRAY_3D<=wine_dataset_init_layer_matrix;
-		
 		NET: NEURAL_NET 
 		port map	(
 					IN1, IN2, IN3, IN4,
@@ -68,7 +64,7 @@ architecture STRUCTURE of TOP is
 						NUMBER_OF_INPUT_NEURONS		=> PERCEPTRONS_INPUT,
 						NUMBER_OF_HIDDEN_NEURONS	=> PERCEPTRONS_HIDDEN,
 						NUMBER_OF_OUTPUT_NEURONS	=> PERCEPTRONS_OUTPUT,
-						WEIGHTS_MATRIX=> NULL
+						WEIGHTS_MATRIX=> FIXED_WEIGHTS_MATRIX_INSTANCE
 						)
 		
 		port map		(
