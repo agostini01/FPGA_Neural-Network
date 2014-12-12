@@ -11,13 +11,12 @@
 --  synthesis tools.  Please note the "%%%" comments.  These are where we
 --  diverge from the VHDL-200X LRM.
 -- --------------------------------------------------------------------
-<<<<<<< HEAD
 -- Version    : $Revision: 1.21 $
 -- Date       : $Date: 2007/09/26 18:08:53 $
-=======
+
 -- Version    : $Revision: 2.0 $
 -- Date       : $Date: 2011/01/26 15:55:27 $
->>>>>>> fbcbarbosa-RS-232
+
 -- --------------------------------------------------------------------
 
 use STD.TEXTIO.all;
@@ -52,9 +51,9 @@ package fixed_pkg is
   subtype ufixed is UNRESOLVED_ufixed;
   subtype sfixed is UNRESOLVED_sfixed;
 
-  --===========================================================================
+  --=====
   -- Arithmetic Operators:
-  --===========================================================================
+  --=====
 
   -- Absolute value, 2's complement
   -- abs sfixed(a downto b) = sfixed(a+1 downto b)
@@ -359,9 +358,9 @@ package fixed_pkg is
 
   function Is_Negative (arg : UNRESOLVED_sfixed) return BOOLEAN;
 
-  --===========================================================================
+  --=====
   -- Comparison Operators
-  --===========================================================================
+  --=====
 
   function ">"  (l, r : UNRESOLVED_ufixed) return BOOLEAN;
   function ">"  (l, r : UNRESOLVED_sfixed) return BOOLEAN;
@@ -555,10 +554,10 @@ package fixed_pkg is
   function maximum (l : REAL; r : UNRESOLVED_sfixed) return UNRESOLVED_sfixed;
   function minimum (l : UNRESOLVED_sfixed; r : REAL) return UNRESOLVED_sfixed;
   function minimum (l : REAL; r : UNRESOLVED_sfixed) return UNRESOLVED_sfixed;
-  --===========================================================================
+  --=====
   -- Shift and Rotate Functions.
   -- Note that sra and sla are not the same as the BIT_VECTOR version
-  --===========================================================================
+  --=====
 
   function "sll" (ARG : UNRESOLVED_ufixed; COUNT : INTEGER)
     return UNRESOLVED_ufixed;
@@ -688,9 +687,9 @@ package fixed_pkg is
   function find_rightmost (arg : UNRESOLVED_sfixed; y : STD_ULOGIC)
     return INTEGER;
 
-  --===========================================================================
+  --=====
   --   RESIZE Functions
-  --===========================================================================
+  --=====
   -- resizes the number (larger or smaller)
   -- The returned result will be ufixed (left_index downto right_index)
   -- If "round_style" is fixed_round, then the result will be rounded.
@@ -736,9 +735,9 @@ package fixed_pkg is
     constant round_style    : fixed_round_style_type    := fixed_round_style)
     return UNRESOLVED_sfixed;
 
-  --===========================================================================
+  --=====
   -- Conversion Functions
-  --===========================================================================
+  --=====
 
   -- integer (natural) to unsigned fixed point.
   -- arguments are the upper and lower bounds of the number, thus
@@ -988,9 +987,9 @@ package fixed_pkg is
     size_res : UNRESOLVED_sfixed)       -- only the size of this is used
     return UNRESOLVED_sfixed;
 
-  --===========================================================================
+  --=====
   -- Translation Functions
-  --===========================================================================
+  --=====
 
   -- maps meta-logical values
   function to_01 (
@@ -1127,9 +1126,9 @@ package fixed_pkg is
     return INTEGER;
 -- rtl_synthesis off
 -- pragma synthesis_off
-  --===========================================================================
+  --=====
   -- string and textio Functions
-  --===========================================================================
+  --=====
 
   -- purpose: writes fixed point into a line
   procedure WRITE (
@@ -1460,13 +1459,12 @@ end package fixed_pkg;
 -- Proposed package body for the VHDL-200x-FT fixed_pkg package
 -- (Fixed point math package)
 -- This package body supplies a recommended implementation of these functions
-<<<<<<< HEAD
 -- Version    : $Revision: 1.21 $
 -- Date       : $Date: 2007/09/26 18:08:53 $
-=======
+
 -- Version    : $Revision: 2.0 $
 -- Date       : $Date: 2011/01/26 15:55:27 $
->>>>>>> fbcbarbosa-RS-232
+
 --
 --  Created for VHDL-200X-ft, David Bishop (dbishop@vhdl.org)
 -------------------------------------------------------------------------------
@@ -1616,11 +1614,10 @@ package body fixed_pkg is
     ('U', 'X', '0', '1', 'X', 'X', '0', '1', '1'),  -- | H |
     ('1', '1', '1', '1', '1', '1', '1', '1', '1')   -- | - |
     );
-<<<<<<< HEAD
   
-=======
 
->>>>>>> fbcbarbosa-RS-232
+
+
   constant no_match_logic_table : stdlogic_table := (
     -----------------------------------------------------
     -- U    X    0    1    Z    W    L    H    -         |   |  
@@ -1739,11 +1736,10 @@ package body fixed_pkg is
       for i in LX'low to LX'high loop
         result1 := \?/=\ (LX(i), RX(i));
         if result1 = 'U' then
-<<<<<<< HEAD
           return 'U';
-=======
+
           result := 'U';
->>>>>>> fbcbarbosa-RS-232
+
         elsif result1 = 'X' or result = 'X' then
           result := 'X';
         else
@@ -2896,11 +2892,10 @@ package body fixed_pkg is
       lslv       := to_uns (lresize);
       rslv       := to_uns (rresize);
       result_slv := lslv + rslv + cx;
-<<<<<<< HEAD
       c_out      := result_slv(left_index);
-=======
+
       c_out      := result_slv(left_index-right_index);
->>>>>>> fbcbarbosa-RS-232
+
       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
                          left_index-1, right_index);
     end if;
@@ -2931,11 +2926,10 @@ package body fixed_pkg is
       lslv       := to_s (lresize);
       rslv       := to_s (rresize);
       result_slv := lslv + rslv + cx;
-<<<<<<< HEAD
       c_out      := result_slv(left_index);
-=======
+
       c_out      := result_slv(left_index-right_index);
->>>>>>> fbcbarbosa-RS-232
+
       result := to_fixed(result_slv (left_index-right_index-1 downto 0),
                          left_index-1, right_index);
     end if;
@@ -8401,8 +8395,5 @@ package body fixed_pkg is
       fraction => fraction);
   end function to_SFix;
 
-<<<<<<< HEAD
 end package body fixed_pkg;
-=======
-end package body fixed_pkg;
->>>>>>> fbcbarbosa-RS-232
+
