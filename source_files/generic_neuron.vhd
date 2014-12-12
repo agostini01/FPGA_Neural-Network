@@ -6,9 +6,6 @@
 -------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
---use ieee.numeric_std.all;
---use work.NN_PKG.all;
---use work.fixed_float_types.all; -- ieee_proposed for VHDL-93 version
 use work.fixed_pkg.all; -- ieee_proposed for compatibility version
 use work.NN_TYPES_pkg.all;
 

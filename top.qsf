@@ -57,9 +57,6 @@ set_global_assignment -name VHDL_FILE libraries/float_pkg_c.vhdl
 set_global_assignment -name VHDL_FILE libraries/fixed_pkg_c.vhdl
 set_global_assignment -name VHDL_FILE libraries/fixed_float_types_c.vhdl
 set_global_assignment -name VHDL_FILE source_files/top.vhd
-set_global_assignment -name VHDL_FILE source_files/neuron.vhd
-set_global_assignment -name VHDL_FILE source_files/neural_net.vhd
-set_global_assignment -name VHDL_FILE source_files/layer.vhd
 set_global_assignment -name VHDL_FILE source_files/neural_net_pkg.vhd
 set_global_assignment -name VHDL_FILE source_files/generic_layer.vhd
 set_global_assignment -name VHDL_FILE source_files/generic_neuron.vhd
