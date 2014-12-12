@@ -40,34 +40,32 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 		
 		BIAS <= NEURON_WEIGHTS(NUMBER_OF_INPUTS);
 		
---		FORWARDPROPAGATION: process	(
---												IN_VALUES,
---												CONTROL,
---												CLK
---												)
---												
---			variable NEWVALUE: CONSTRAINED_SFIXED;
---			begin
---				NEWVALUE := to_sfixed(0 ,U_SIZE,L_SIZE);
---				if rising_edge(CLK)then
---				
---					for I in 0 to (NUMBER_OF_INPUTS-1) loop 
---						NEWVALUE := resize(
---						(NEWVALUE + resize(
---										(IN_VALUES(I) * NEURON_WEIGHTS(I)),
---										NEWVALUE'high,NEWVALUE'low))
---						,NEWVALUE'high,NEWVALUE'low);
---					end loop;
---					
---					NEWVALUE := resize(
---										(NEWVALUE + BIAS),
---										NEWVALUE'high,NEWVALUE'low);
---				else
---					NULL;
---				end if;
---				
---				OUTPUT <= NEWVALUE;
---		end process;
+		FORWARDPROPAGATION: process	(
+												IN_VALUES,
+												CONTROL,
+												CLK
+												)
+												
+			variable NEWVALUE: CONSTRAINED_SFIXED;
+			begin
+				
+				if CLK'event and CLK ='1'then
+					NEWVALUE := to_sfixed(0 ,U_SIZE,L_SIZE);
+					for I in 0 to (NUMBER_OF_INPUTS-1) loop 
+						NEWVALUE := resize(
+						(NEWVALUE + resize(
+										(IN_VALUES(I) * NEURON_WEIGHTS(I)),
+										NEWVALUE'high,NEWVALUE'low))
+						,NEWVALUE'high,NEWVALUE'low);
+					end loop;
+					
+					NEWVALUE := resize(
+										(NEWVALUE + BIAS),
+										NEWVALUE'high,NEWVALUE'low);
+				end if;
+				
+				OUTPUT <= NEWVALUE;
+		end process;
 		
 		
 			
