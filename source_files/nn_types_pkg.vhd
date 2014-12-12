@@ -15,7 +15,7 @@ package NN_TYPES_pkg is
 			constant	PERCEPTRONS_OUTPUT 	: natural := 3;	-- Number of output neurons
 			
 			constant	U_SIZE : integer :=8;		--bits before decimal point
-			constant	L_SIZE : integer :=-10;		--bits after decimal point
+			constant	L_SIZE : integer :=-14;		--bits after decimal point
 			
 			------------------------------------------------------------------------------
 			subtype	CONSTRAINED_SFIXED 			is sfixed(U_SIZE downto L_SIZE);

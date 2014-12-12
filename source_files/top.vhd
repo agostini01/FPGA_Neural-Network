@@ -5,27 +5,19 @@ use work.NN_CONSTANTS_pkg.all;
 
 entity TOP is
 	port	(
-			START, CLK							:in std_logic;
-			IN1, IN2, IN3, IN4				:in integer range -5 to 5;
-			OUT1, OUT2, OUT3, OUT4 			:out integer
+			CLK							:in std_logic
 			);
 end TOP;
 
 architecture STRUCTURE of TOP is
 	
 	-- Signals for the NEURAL NETWORK
-	signal 	CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;	
+	signal	START			: std_logic;
+	signal 	CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;
+	signal	DATA_READY	: std_logic;
 	signal	INPUT													: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT-1)) := A_SAMPLE_INPUT;
 	signal	OUTPUT												: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_HIDDEN-1));
 	
-	component NEURAL_NET
-		port	(
-				INPUT1, INPUT2, INPUT3, INPUT4				:in integer range -5 to 5;
-				CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:in std_logic;
-				OUTPUT1, OUTPUT2, OUTPUT3, OUTPUT4			:out integer;
-				START, CLK											:in std_logic		
-				);
-	end component;
 	
 	component GENERIC_NEURAL_NET 
 		generic	(
@@ -39,7 +31,8 @@ architecture STRUCTURE of TOP is
 					INPUT													:in ARRAY_OF_SFIXED;
 					CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:in std_logic;
 					START, CLK											:in std_logic;
-					OUTPUT												:out ARRAY_OF_SFIXED
+					OUTPUT												:out ARRAY_OF_SFIXED;
+					DATA_READY											:out std_logic
 					);
 
 	end component;
@@ -49,15 +42,6 @@ architecture STRUCTURE of TOP is
 		CONTROL_HIDDEN<='1';
 		CONTROL_OUT<='1';
 		
-		NET: NEURAL_NET 
-		port map	(
-					IN1, IN2, IN3, IN4,
-					CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT,
-					OUT1, OUT2, OUT3, OUT4,
-					START, CLK	
-					);
-		
-
 		
 		GEN_NET: GENERIC_NEURAL_NET 
 		generic map	(
@@ -71,7 +55,8 @@ architecture STRUCTURE of TOP is
 						INPUT => INPUT,
 						CONTROL_IN => CONTROL_IN, CONTROL_HIDDEN => CONTROL_IN, CONTROL_OUT => CONTROL_IN,
 						START => START, CLK => CLK,
-						OUTPUT=>	OUTPUT
+						OUTPUT=>	OUTPUT,
+						DATA_READY => DATA_READY
 						);
 											
 end STRUCTURE;

@@ -14,7 +14,8 @@ entity GENERIC_NEURAL_NET is
 				INPUT													:in ARRAY_OF_SFIXED;
 				CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:in std_logic;
 				START, CLK											:in std_logic;
-				OUTPUT												:out ARRAY_OF_SFIXED
+				OUTPUT												:out ARRAY_OF_SFIXED;
+				DATA_READY											:out std_logic
 				);
 
 end GENERIC_NEURAL_NET;
