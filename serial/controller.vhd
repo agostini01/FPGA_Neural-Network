@@ -21,10 +21,11 @@ entity controller is
 		LEDR		: 	out std_logic_vector (17 downto 0);
 		
 		-- control ports
-		start		: 	out std_logic;		-- 0 - stop / 1 - start neural net
-		flow		: 	out std_logic;		-- 0 - back propagation / 1 - forward propagation
-		sample	:	out std_logic_vector (7 downto 0);
-		result	:	in std_logic_vector (2 downto 0)
+		NN_start		: 	out std_logic;		-- 0 - stop / 1 - start neural net
+		NN_flow		: 	out std_logic;		-- 0 - back propagation / 1 - forward propagation
+		NN_sample	:	out std_logic_vector (7 downto 0);
+		NN_result	:	in std_logic_vector (1 downto 0);
+		NN_ready		:	in std_logic
 	);
 		
 end controller;

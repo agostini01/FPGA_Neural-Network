@@ -12,3 +12,14 @@ serial.map.rpt
 serial.map.summary
 serial.qsf
 serial_description.txt
+serial.asm.rpt
+serial.fit.rpt
+serial.fit.smsg
+serial.fit.summary
+serial.flow.rpt
+serial.jdi
+serial.pin
+serial.pof
+serial.sof
+serial.sta.rpt
+seria.sta.summary

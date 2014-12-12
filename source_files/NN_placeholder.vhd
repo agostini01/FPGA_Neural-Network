@@ -9,11 +9,12 @@ use work.fixed_pkg.all; -- ieee_proposed for compatibility version
 
 entity NN_placeholder is 
 	port (
-		clk		:	in std_logic;
-		start		:	in	std_logic;
-		flow		: 	in std_logic;
-		sample 	: 	in std_logic_vector (7 downto 0);
-		result 	: 	out std_logic_vector (2 downto 0)
+		clk			:	in std_logic;
+		NN_start		:	in	std_logic;
+		NN_flow		: 	in std_logic;
+		NN_sample 	: 	in std_logic_vector (7 downto 0);
+		NN_result 	: 	out std_logic_vector (1 downto 0);
+		NN_ready		: 	out std_logic
 	);
 end NN_placeholder;
 
