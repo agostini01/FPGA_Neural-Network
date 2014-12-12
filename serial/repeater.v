@@ -1,4 +1,4 @@
-module processor(clk, rxReady, rxData, txBusy, txStart, txData);
+module repeater(clk, rxReady, rxData, txBusy, txStart, txData);
   input clk;
   input[7:0] rxData;
   input rxReady;
@@ -7,7 +7,7 @@ module processor(clk, rxReady, rxData, txBusy, txStart, txData);
   output reg[7:0] txData;
 
   localparam READ=0, SOLVING=1, WRITE1=2, WRITE2=3;
-  localparam LEN = 10;
+  localparam LEN = 3;
   localparam LENMAX = LEN - 1;
 
   integer ioCount;
