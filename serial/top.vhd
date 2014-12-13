@@ -24,9 +24,9 @@ architecture structure of top is
 	signal	txStart		:	std_logic; 
 	signal	txData		:	std_logic_vector(7 downto 0);		
 	signal	NN_start		: 	std_logic;		-- 0 - stop / 1 - start neural net
-	signal	NN_flow		: 	std_logic;		-- 0 - back propagation / 1 - forward propagation
-	signal	NN_sample	:	std_logic_vector (7 downto 0);
+	signal	NN_sample	:	std_logic_vector (8 downto 0);
 	signal	NN_result	:	std_logic_vector (1 downto 0);
+	signal	NN_expected	:	std_logic_vector (1 downto 0);
 	signal 	NN_ready		: 	std_logic;
 			
 	component rs_232
@@ -57,10 +57,10 @@ architecture structure of top is
 			LEDR		: 	out std_logic_vector (17 downto 0);
 			
 			-- control ports
-			NN_start		: 	out std_logic;		-- 0 - stop / 1 - start neural net
-			NN_flow		: 	out std_logic;		-- 0 - back propagation / 1 - forward propagation
-			NN_sample	:	out std_logic_vector (7 downto 0);
+			NN_start		: 	out std_logic;	
+			NN_sample	:	out std_logic_vector (8 downto 0);		
 			NN_result	:	in std_logic_vector (1 downto 0);
+			NN_expected	:	in std_logic_vector (1 downto 0);
 			NN_ready		:	in std_logic
 		);	
 	end component;
@@ -69,9 +69,9 @@ architecture structure of top is
 		port (
 			clk			:	in	std_logic;
 			NN_start		:	in	std_logic;
-			NN_flow		: 	in std_logic;
-			NN_sample 	: 	in std_logic_vector (7 downto 0);
+			NN_sample 	: 	in std_logic_vector (8 downto 0);		
 			NN_result 	: 	out std_logic_vector (1 downto 0);
+			NN_expected	:	out std_logic_vector (1 downto 0);
 			NN_ready 	: 	out std_logic
 		);
 	end component;
@@ -99,20 +99,20 @@ architecture structure of top is
 			txStart	=>	txStart,		
 			txData	=> txData,
 			NN_start		=> NN_start,
-			NN_flow		=> NN_flow,
 			NN_sample	=> NN_sample,
 			NN_result	=> NN_result,
-			NN_ready		=> NN_ready
+			NN_ready		=> NN_ready,
+			NN_expected => NN_expected
 		);	
 
 		neural_net	: NN_placeholder 
 		port map (  
 			clk 		=> CLOCK_50,
 			NN_start		=> NN_start,
-			NN_flow		=> NN_flow,
 			NN_sample	=> NN_sample,
 			NN_result	=> NN_result,
-			NN_ready		=> NN_ready
+			NN_ready		=> NN_ready,
+			NN_expected => NN_expected
 		);	
 		
 end structure;

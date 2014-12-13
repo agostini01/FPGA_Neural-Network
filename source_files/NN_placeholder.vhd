@@ -11,9 +11,9 @@ entity NN_placeholder is
 	port (
 		clk			:	in std_logic;
 		NN_start		:	in	std_logic;
-		NN_flow		: 	in std_logic;
-		NN_sample 	: 	in std_logic_vector (7 downto 0);
+		NN_sample 	: 	in std_logic_vector (8 downto 0);
 		NN_result 	: 	out std_logic_vector (1 downto 0);
+		NN_expected	: 	out std_logic_vector (1 downto 0);
 		NN_ready		: 	out std_logic
 	);
 end NN_placeholder;
