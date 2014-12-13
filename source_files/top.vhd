@@ -1,12 +1,40 @@
+--=============================================================================
+--    This file is part of FPGA_NEURAL-Network.
+--
+--    FPGA_NEURAL-Network is free software: you can redistribute it and/or 
+--    modify it under the terms of the GNU General Public License as published 
+--    by the Free Software Foundation, either version 3 of the License, or
+--    (at your option) any later version.
+--
+--    FPGA_NEURAL-Network is distributed in the hope that it will be useful,
+--    but WITHOUT ANY WARRANTY; without even the implied warranty of
+--    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+--    GNU General Public License for more details.
+--
+--    You should have received a copy of the GNU General Public License
+--    along with FPGA_NEURAL-Network.  
+--		If not, see <http://www.gnu.org/licenses/>.
+
+--=============================================================================
+--	FILE NAME			: top.vhd
+--	PROJECT				: FPGA_NEURAL-Network
+--	ENTITY				: top
+--	ARCHITECTURE		: structure
+--=============================================================================
+--	AUTORS(s)			: Agostini, N; Barbosa, F
+--	DEPARTMENT      	: Electrical Engineering (UFRGS)
+--	DATE					: NOV 28, 2014
+--=============================================================================
+--	Description:
+--	
+--=============================================================================
+
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.std_logic_arith.all;
-use ieee.std_logic_unsigned.all;
-use ieee.numeric_std.all;
 
-use work.fixed_float_types.all; -- ieee_proposed for VHDL-93 version
-use work.fixed_pkg.all; -- ieee_proposed for compatibility version
-
+--=============================================================================
+-- Entity declaration for top
+--=============================================================================
 entity top is 
 	port (
 		-- async receiver/transmitter com ports
@@ -16,6 +44,9 @@ entity top is
 	);
 end top;
 
+--=============================================================================
+-- architecture declaration
+--=============================================================================
 architecture structure of top is
 
 	signal 	rxReady		:	std_logic;
@@ -65,7 +96,7 @@ architecture structure of top is
 		);	
 	end component;
 
-	component NN_placeholder
+	component NN_INSTANCE
 		port (
 			clk			:	in	std_logic;
 			NN_start		:	in	std_logic;
@@ -75,7 +106,10 @@ architecture structure of top is
 			NN_ready 	: 	out std_logic
 		);
 	end component;
-		
+	
+--=============================================================================
+-- architecture begin
+--=============================================================================		
 	begin
 	
 	serial_interface : rs_232 
@@ -105,7 +139,7 @@ architecture structure of top is
 			NN_expected => NN_expected
 		);	
 
-		neural_net	: NN_placeholder 
+		neural_net	: NN_INSTANCE 
 		port map (  
 			clk 		=> CLOCK_50,
 			NN_start		=> NN_start,
@@ -116,3 +150,6 @@ architecture structure of top is
 		);	
 		
 end structure;
+--=============================================================================
+-- architecture end
+--=============================================================================
