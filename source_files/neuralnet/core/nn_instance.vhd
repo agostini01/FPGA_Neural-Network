@@ -86,7 +86,19 @@ architecture structure of NN_INSTANCE is
 			SAMPLE_NUMBER 		: 	in std_logic_vector (7 downto 0);
 			NN_INPUT				: 	out ARRAY_OF_SFIXED;
 			TARGET_VALUE		: 	out ARRAY_OF_SFIXED
-		);
+			);
+	end component;
+	
+	component OUTPUT_CONTROL 
+		port (
+			CLK				:	in std_logic;
+			DATA_READY		:	in std_logic;
+			OUTPUT_READY	:	out std_logic;
+			NN_OUTPUT		: 	in ARRAY_OF_SFIXED;
+			TARGET_VALUE	: 	in ARRAY_OF_SFIXED;
+			NN_result 	: 	out std_logic_vector (1 downto 0);
+			NN_expected	: 	out std_logic_vector (1 downto 0)
+			);
 	end component;
 --=============================================================================
 -- architecture begin
@@ -123,7 +135,17 @@ architecture structure of NN_INSTANCE is
 						NN_INPUT				=> NN_INPUT,
 						TARGET_VALUE		=> TARGET
 						);
-
+						
+		OUTPUT_CTR: OUTPUT_CONTROL
+		port map		(
+						CLK				=> CLK,
+						DATA_READY		=> DATA_READY,
+						OUTPUT_READY	=> NN_ready,
+						NN_OUTPUT		=> NN_OUTPUT,
+						TARGET_VALUE	=> TARGET,
+						NN_result 		=> NN_result,
+						NN_expected		=> NN_expected
+						);
 						
 end structure;
 --=============================================================================

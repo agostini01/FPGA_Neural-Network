@@ -250,7 +250,7 @@ architecture RTL of INPUT_ROM is
 -- architecture begin
 --=============================================================================	
 	begin
-
+		IN_UNSIGNED <= unsigned(SAMPLE_NUMBER);
 		LOOKUP_TABLE_K <= -- Make sure no index will fall out of boundary
 			to_unsigned(0, 8) when IN_UNSIGNED <= 0 
 		else
