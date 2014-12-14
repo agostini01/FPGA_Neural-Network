@@ -40,7 +40,8 @@ entity top is
 		-- async receiver/transmitter com ports
 		CLOCK_50	:	in	std_logic;
 		UART_RXD : 	in std_logic;
-		UART_TXD : 	out std_logic
+		UART_TXD : 	out std_logic;
+		LEDR		: 	out std_logic_vector (17 downto 0)
 	);
 end top;
 
@@ -85,7 +86,7 @@ architecture structure of top is
 			txData	:	out std_logic_vector(7 downto 0);		
 			
 			-- LEDs (for debugging)
-			LEDR		: 	out std_logic_vector (17 downto 0);
+			leds		: 	out std_logic_vector (17 downto 0);
 			
 			-- control ports
 			NN_start		: 	out std_logic;	
@@ -132,11 +133,12 @@ architecture structure of top is
 			txBusy	=> txBusy,
 			txStart	=>	txStart,		
 			txData	=> txData,
+			leds		=> LEDR,
 			NN_start		=> NN_start,
 			NN_sample	=> NN_sample,
 			NN_result	=> NN_result,
-			NN_ready		=> NN_ready,
-			NN_expected => NN_expected
+			NN_expected => NN_expected,
+			NN_ready		=> NN_ready
 		);	
 
 		neural_net	: NN_INSTANCE 
@@ -145,8 +147,8 @@ architecture structure of top is
 			NN_start		=> NN_start,
 			NN_sample	=> NN_sample,
 			NN_result	=> NN_result,
-			NN_ready		=> NN_ready,
-			NN_expected => NN_expected
+			NN_expected => NN_expected,
+			NN_ready		=> NN_ready
 		);	
 		
 end structure;
