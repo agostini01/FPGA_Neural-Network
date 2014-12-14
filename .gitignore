@@ -10,7 +10,6 @@ serial.done
 serial.flow.rpt
 serial.map.rpt
 serial.map.summary
-serial.qsf
 serial_description.txt
 serial.asm.rpt
 serial.fit.rpt
