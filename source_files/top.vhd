@@ -55,7 +55,7 @@ architecture structure of top is
 	signal	txStart		:	std_logic; 
 	signal	txData		:	std_logic_vector(7 downto 0);		
 	signal	NN_start		: 	std_logic;		-- 0 - stop / 1 - start neural net
-	signal	NN_sample	:	std_logic_vector (8 downto 0);
+	signal	NN_sample	:	std_logic_vector (7 downto 0);
 	signal	NN_result	:	std_logic_vector (1 downto 0);
 	signal	NN_expected	:	std_logic_vector (1 downto 0);
 	signal 	NN_ready		: 	std_logic;
@@ -89,7 +89,7 @@ architecture structure of top is
 			
 			-- control ports
 			NN_start		: 	out std_logic;	
-			NN_sample	:	out std_logic_vector (8 downto 0);		
+			NN_sample	:	out std_logic_vector (7 downto 0);		
 			NN_result	:	in std_logic_vector (1 downto 0);
 			NN_expected	:	in std_logic_vector (1 downto 0);
 			NN_ready		:	in std_logic
@@ -100,7 +100,7 @@ architecture structure of top is
 		port (
 			clk			:	in	std_logic;
 			NN_start		:	in	std_logic;
-			NN_sample 	: 	in std_logic_vector (8 downto 0);		
+			NN_sample 	: 	in std_logic_vector (7 downto 0);		
 			NN_result 	: 	out std_logic_vector (1 downto 0);
 			NN_expected	:	out std_logic_vector (1 downto 0);
 			NN_ready 	: 	out std_logic

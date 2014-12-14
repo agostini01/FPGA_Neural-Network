@@ -489,4 +489,7 @@ set_global_assignment -name VHDL_FILE source_files/top.vhd
 set_global_assignment -name VHDL_FILE source_files/serial/rs_232.vhd
 set_global_assignment -name VHDL_FILE source_files/serial/controller.vhd
 set_global_assignment -name VHDL_FILE libraries/fixed_pkg_c.vhdl -library work
+set_global_assignment -name VHDL_FILE source_files/neuralnet/control/input_select.vhd
+set_global_assignment -name VHDL_FILE source_files/neuralnet/control/input_rom_pkg.vhd
+set_global_assignment -name VHDL_FILE source_files/neuralnet/control/input_rom.vhd
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

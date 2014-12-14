@@ -41,7 +41,7 @@ entity NN_INSTANCE is
 	port (
 		clk			:	in std_logic;
 		NN_start		:	in	std_logic;
-		NN_sample 	: 	in std_logic_vector (8 downto 0);
+		NN_sample 	: 	in std_logic_vector (7 downto 0);
 		NN_result 	: 	out std_logic_vector (1 downto 0);
 		NN_expected	: 	out std_logic_vector (1 downto 0);
 		NN_ready		: 	out std_logic
@@ -57,8 +57,9 @@ architecture structure of NN_INSTANCE is
 	signal	START			: std_logic;
 	signal 	CONTROL_IN, CONTROL_HIDDEN, CONTROL_OUT	:std_logic;
 	signal	DATA_READY	: std_logic;
-	signal	INPUT													: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT-1)) := A_SAMPLE_INPUT;
-	signal	OUTPUT												: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_HIDDEN-1));
+	signal	NN_INPUT												: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT-1));
+	signal	NN_OUTPUT											: ARRAY_OF_SFIXED (0 to (PERCEPTRONS_OUTPUT-1));
+	signal	TARGET												: ARRAY_OF_SFIXED (0 to PERCEPTRONS_OUTPUT-1); -- number of outputs: 3 for this example
 	
 	
 	component GENERIC_NEURAL_NET 
@@ -75,19 +76,30 @@ architecture structure of NN_INSTANCE is
 					START, CLK											:in std_logic;
 					OUTPUT												:out ARRAY_OF_SFIXED;
 					DATA_READY											:out std_logic
-					);
-
+					);				
 	end component;
 	
+
+	component INPUT_SELECT 
+		port (
+			CLK					:	in std_logic;
+			SAMPLE_NUMBER 		: 	in std_logic_vector (7 downto 0);
+			NN_INPUT				: 	out ARRAY_OF_SFIXED;
+			TARGET_VALUE		: 	out ARRAY_OF_SFIXED
+		);
+	end component;
 --=============================================================================
 -- architecture begin
 --=============================================================================	
 	begin
+		-- Signals Assigments
 		CONTROL_IN<='1';
 		CONTROL_HIDDEN<='1';
 		CONTROL_OUT<='1';
 		
 		
+		
+		-- Components Assigments
 		GEN_NET: GENERIC_NEURAL_NET 
 		generic map	(
 						NUMBER_OF_INPUT_NEURONS		=> PERCEPTRONS_INPUT,
@@ -97,13 +109,22 @@ architecture structure of NN_INSTANCE is
 						)
 		
 		port map		(
-						INPUT => INPUT,
+						INPUT => NN_INPUT,
 						CONTROL_IN => CONTROL_IN, CONTROL_HIDDEN => CONTROL_IN, CONTROL_OUT => CONTROL_IN,
 						START => START, CLK => CLK,
-						OUTPUT=>	OUTPUT,
+						OUTPUT=>	NN_OUTPUT,
 						DATA_READY => DATA_READY
 						);
 
+		IN_SELECTION: INPUT_SELECT 
+		port map		(
+						CLK					=>	CLK,
+						SAMPLE_NUMBER 		=>	NN_sample,
+						NN_INPUT				=> NN_INPUT,
+						TARGET_VALUE		=> TARGET
+						);
+
+						
 end structure;
 --=============================================================================
 -- architecture end

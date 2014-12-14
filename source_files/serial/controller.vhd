@@ -53,7 +53,7 @@ entity controller is
 		
 		-- control ports
 		NN_start		: 	out std_logic;		-- 0 - stop / 1 - start neural net
-		NN_sample	:	out std_logic_vector (8 downto 0);
+		NN_sample	:	out std_logic_vector (7 downto 0);
 		NN_result	:	in std_logic_vector (1 downto 0);
 		NN_expected	:	in std_logic_vector (1 downto 0);
 		NN_ready		:	in std_logic
@@ -121,7 +121,7 @@ architecture behaviour of controller is
 		NN_start 	<= '1' when s_load_sample,
 							'0' when others;
 
-	NN_sample <= conv_std_logic_vector(sample_count, 9);
+	NN_sample <= conv_std_logic_vector(sample_count, 8);
 	
 	-- handles control and serial logic
 	state_reg : process(clk)
