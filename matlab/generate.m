@@ -38,7 +38,7 @@ fprintf('Writing to file %s... ', FILE_NAME);
 
 % INPUT MATRIX
 [m,n] = size(normalized);
-fprintf(fileID, '\t\t\tconstant INPUT_TABLE : INPUT_LOOKUP_TABLE := (');
+fprintf(fileID, '\t\t\tconstant INPUT_LOOKUP_TABLE : ARRAY_OF_SFIXED (0 to (PERCEPTRONS_INPUT-1+3)) := (');
 for i = 1:m
     fprintf(fileID, '\n\t\t\t\t(');
     for j = 1:(n - 1)
