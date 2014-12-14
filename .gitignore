@@ -23,4 +23,4 @@ serial.pof
 serial.sof
 serial.sta.rpt
 serial.sta.summary
-.directory
+*.directory
