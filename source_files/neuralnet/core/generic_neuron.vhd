@@ -56,7 +56,6 @@ end GENERIC_NEURON;
 -- architecture declaration
 --=============================================================================
 architecture BEHAVIOUR of GENERIC_NEURON is
-	signal WEIGHTS : ARRAY_OF_SFIXED(0 to NUMBER_OF_INPUTS-1);
 	signal BIAS		: CONSTRAINED_SFIXED;
 
 --=============================================================================
@@ -64,11 +63,6 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 --=============================================================================
 	begin
 		--initialization
-		GEN_WEIGHTS:
-			for I in 0 to (NUMBER_OF_INPUTS-1) generate 
-				WEIGHTS(I)<= NEURON_WEIGHTS(I);
-			end generate GEN_WEIGHTS;
-		
 		BIAS <= NEURON_WEIGHTS(NUMBER_OF_INPUTS);
 		
 		FORWARDPROPAGATION: process	(

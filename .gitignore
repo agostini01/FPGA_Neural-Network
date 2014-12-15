@@ -6,6 +6,7 @@
 /simulation/
 top.jdi
 top.qws
+serial.cdf
 serial.qws
 serial.done
 serial.flow.rpt
