@@ -60,6 +60,9 @@ end GENERIC_NEURAL_NET;
 architecture STRUCTURE of GENERIC_NEURAL_NET is
 	signal SECOND 				:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_INPUT-1));
 	signal THIRD 				:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_HIDDEN-1));
+	signal THE_OUTPUT			:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_HIDDEN-1));
+	signal PREVIOUS_OUTPUT	:ARRAY_OF_SFIXED(0 to (PERCEPTRONS_HIDDEN-1));
+
 	
 	component GENERIC_LAYER
 		generic	(
@@ -70,8 +73,8 @@ architecture STRUCTURE of GENERIC_NEURAL_NET is
 		
 		port		(
 					LAYER_INPUT		:in ARRAY_OF_SFIXED;
-					CONTROL	:in std_logic;
-					CLK		:in std_logic;
+					CONTROL			:in std_logic;
+					CLK				:in std_logic;
 					LAYER_OUTPUT	:out ARRAY_OF_SFIXED
 					);
 					
@@ -121,9 +124,30 @@ architecture STRUCTURE of GENERIC_NEURAL_NET is
 							LAYER_INPUT	=> THIRD,
 							CONTROL 		=>	CONTROL_OUT,
 							CLK 			=> CLK,
-							LAYER_OUTPUT => OUTPUT
+							LAYER_OUTPUT => THE_OUTPUT
 							);
-		DATA_READY<='1';
+			
+			OUTPUT <= THE_OUTPUT;
+		
+--		STORE_LAST_OUTPUT: process	(THE_OUTPUT, CLK)
+--			begin
+--				if CLK'event and CLK ='1'then
+--					PREVIOUS_OUTPUT<=SECOND;
+--				end if;
+--		end process;
+--
+--		DATA_READY_PROCESS: process(PREVIOUS_OUTPUT,SECOND,CLK)
+--			begin
+--				if CLK'event and CLK ='1'then
+--					if PREVIOUS_OUTPUT\=SECOND then
+--						DATA_READY<='1';
+--					else
+--						DATA_READY<='0';
+--					end if;
+--				end if;
+--		end process;
+		
+		DATA_READY <= '1';
 	
 end STRUCTURE;
 --=============================================================================
