@@ -123,6 +123,7 @@ architecture STRUCTURE of GENERIC_NEURAL_NET is
 							CLK 			=> CLK,
 							LAYER_OUTPUT => OUTPUT
 							);
+		DATA_READY<='1';
 	
 end STRUCTURE;
 --=============================================================================

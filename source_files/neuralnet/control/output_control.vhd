@@ -129,10 +129,11 @@ architecture STRUCTURE of OUTPUT_CONTROL is
 				end if;
 		end process;
 		
-		
+		-- TODO!! correct readyness
 		NN_result<=RESULT_TMP;
 		NN_expected<=TARGET_TMP;
 		OUTPUT_READY<=READY_1 and READY_2;
+
 
 end STRUCTURE;
 --=============================================================================

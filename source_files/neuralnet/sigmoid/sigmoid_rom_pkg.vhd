@@ -41,13 +41,9 @@ package SIGMOID_ROM_pkg is
 		
 		subtype	INPUT_SFIXED 			is sfixed(1 downto L_SIZE);
 		
-		type 		INPUT_ARRAY 			is array (natural range <>) of INPUT_SFIXED;
-		subtype	INPUT_LOOKUP_ARRAY	is INPUT_ARRAY(0 to (PERCEPTRONS_INPUT-1+PERCEPTRONS_OUTPUT));
+		type 		INPUT_ARRAY 			is array (natural range <>) of INPUT_SFIXED;		
+		subtype	TAN_SIG_VECTOR			is INPUT_ARRAY(0 to (VECTOR_SIZE-1));
 		
-		subtype	TAN_SIG_VECTOR			is ARRAY_OF_SFIXED(0 to (VECTOR_SIZE-1));
-		type		INPUT_TABLE 			is array (natural range <>) of INPUT_ARRAY;
-		
-		subtype INPUT_CONSTRAINED_SFIXED_ARRAY is ARRAY_OF_SFIXED(0 to (PERCEPTRONS_INPUT-1+PERCEPTRONS_OUTPUT));
 		
 end;
 

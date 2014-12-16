@@ -56,8 +56,16 @@ end GENERIC_NEURON;
 -- architecture declaration
 --=============================================================================
 architecture BEHAVIOUR of GENERIC_NEURON is
-	signal BIAS		: CONSTRAINED_SFIXED;
+	signal BIAS			:	CONSTRAINED_SFIXED;
+	signal TO_SIGMOID	:	CONSTRAINED_SFIXED;
 
+	component SIGMOID_SELECT
+		port (
+				CLK				:	in std_logic;
+				X_VALUE 			: 	in CONSTRAINED_SFIXED;
+				Y_VALUE			: 	out CONSTRAINED_SFIXED
+				);
+	end component;
 --=============================================================================
 -- architecture begin
 --=============================================================================
@@ -89,9 +97,15 @@ architecture BEHAVIOUR of GENERIC_NEURON is
 										NEWVALUE'high,NEWVALUE'low);
 				end if;
 				
-				OUTPUT <= NEWVALUE;
+				TO_SIGMOID <= NEWVALUE;
 		end process;
 		
+		SIGMOID: SIGMOID_SELECT
+			port map	(
+						CLK				=>	CLK,
+						X_VALUE 			=>	TO_SIGMOID,
+						Y_VALUE			=>	OUTPUT
+						);
 				
 end;	
 --=============================================================================

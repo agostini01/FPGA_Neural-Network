@@ -31,6 +31,8 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all; -- is the to unsigned really required????
+use work.fixed_pkg.all; -- ieee_proposed for compatibility version
 use work.NN_TYPES_pkg.all;
 
 --=============================================================================
@@ -41,7 +43,7 @@ entity SIGMOID_SELECT is
 		CLK				:	in std_logic;
 		X_VALUE 			: 	in CONSTRAINED_SFIXED;
 		Y_VALUE			: 	out CONSTRAINED_SFIXED
-	);
+		);
 end SIGMOID_SELECT;
 
 --=============================================================================
@@ -50,7 +52,8 @@ end SIGMOID_SELECT;
 architecture STRUCTURE of SIGMOID_SELECT is
 
 	-- Signals
-	signal SAMPLE_NUMBER	: std_logic_vector;
+	signal SAMPLE_NUMBER	: std_logic_vector (13 downto 0);
+	signal IN_UNSIGNED 	: unsigned(13 downto 0);
 	-- Components
 	component SIGMOID_ROM
 		port	(
@@ -67,12 +70,6 @@ architecture STRUCTURE of SIGMOID_SELECT is
 --=============================================================================	
 	begin
 	
-	GEN_PROPER_SAMPLE_NUMBER: -- TODO!
-		for I in 0 to (13) generate
-			SAMPLE_NUMBER(I)<=
-				X_VALUE(I);
-								
-		end generate GEN_PROPER_SAMPLE_NUMBER;
 	
 	ROM: SIGMOID_ROM 
 		port map		(
@@ -81,6 +78,14 @@ architecture STRUCTURE of SIGMOID_SELECT is
 						Y_VALUE			=> Y_VALUE
 						);
 
+	IN_UNSIGNED <= unsigned(to_slv(resize(X_VALUE,3,-10)));
+	
+	SAMPLE_NUMBER <= 
+			std_logic_vector(to_unsigned(0, 14)) when X_VALUE <= -3 -- limits from the tansig function where it almost saturates
+		else
+			std_logic_vector(to_unsigned(16383, 14)) when X_VALUE >= 3 
+		else
+			std_logic_vector(IN_UNSIGNED);
 
 end STRUCTURE;
 --=============================================================================
