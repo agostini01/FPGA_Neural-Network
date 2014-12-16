@@ -37,7 +37,8 @@ library ieee;
 --=============================================================================
 package SIGMOID_ROM_pkg is
 
-		constant VECTOR_SIZE	: natural := 16384;
+		constant VECTOR_SIZE	: natural := 1024;
+		constant NUMBER_OF_BITS: natural :=10;
 		
 		subtype	INPUT_SFIXED 			is sfixed(1 downto L_SIZE);
 		
