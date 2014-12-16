@@ -16,14 +16,14 @@
 --		If not, see <http://www.gnu.org/licenses/>.
 
 --=============================================================================
---	FILE NAME			: generic_neuron.vhd
+--	FILE NAME			: input_select.vhd
 --	PROJECT				: FPGA_NEURAL-Network
---	ENTITY				: GENERIC_NEURON
---	ARCHITECTURE		: behaviour
+--	ENTITY				: SIGMOID_SELECT
+--	ARCHITECTURE		: structure
 --=============================================================================
---	AUTORS(s)			: Agostini, N
+--	AUTORS(s)			: Agostini, N;
 --	DEPARTMENT      	: Electrical Engineering (UFRGS)
---	DATE					: NOV 28, 2014
+--	DATE					: Dec 14, 2014
 --=============================================================================
 --	Description:
 --	
@@ -31,83 +31,64 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all; -- is the to unsigned really required????
 use work.fixed_pkg.all; -- ieee_proposed for compatibility version
+use work.SIGMOID_ROM_pkg.all;
 use work.NN_TYPES_pkg.all;
 
 --=============================================================================
--- Entity declaration for GENERIC_NEURON
+-- Entity declaration for SIGMOID_SELECT
 --=============================================================================
-entity GENERIC_NEURON is
-	generic	(
-				NUMBER_OF_INPUTS : natural;
-				NEURON_WEIGHTS : ARRAY_OF_SFIXED
-				);
-				
-	port		(
-				IN_VALUES	:in ARRAY_OF_SFIXED;
-				CONTROL		:in std_logic;
-				CLK			:in std_logic;
-				OUTPUT		:out CONSTRAINED_SFIXED
-				);
-				
-end GENERIC_NEURON;
+entity SIGMOID_SELECT is 
+	port (
+		CLK				:	in std_logic;
+		X_VALUE 			: 	in CONSTRAINED_SFIXED;
+		Y_VALUE			: 	out CONSTRAINED_SFIXED
+		);
+end SIGMOID_SELECT;
 
 --=============================================================================
 -- architecture declaration
 --=============================================================================
-architecture BEHAVIOUR of GENERIC_NEURON is
-	signal BIAS			:	CONSTRAINED_SFIXED;
-	signal TO_SIGMOID	:	CONSTRAINED_SFIXED;
+architecture STRUCTURE of SIGMOID_SELECT is
 
-	component SIGMOID_SELECT
-		port (
-				CLK				:	in std_logic;
-				X_VALUE 			: 	in CONSTRAINED_SFIXED;
+	-- Signals
+	signal SAMPLE_NUMBER	: std_logic_vector ((NUMBER_OF_BITS-1) downto 0);
+	signal IN_UNSIGNED 	: unsigned((NUMBER_OF_BITS-1) downto 0);
+	-- Components
+	component SIGMOID_ROM
+		port	(
+				clk				:	in std_logic;
+				X_VALUE 			: 	in std_logic_vector ((NUMBER_OF_BITS-1) downto 0);
 				Y_VALUE			: 	out CONSTRAINED_SFIXED
 				);
+					
 	end component;
+	
+	
 --=============================================================================
 -- architecture begin
---=============================================================================
+--=============================================================================	
 	begin
-		--initialization
-		BIAS <= NEURON_WEIGHTS(NUMBER_OF_INPUTS);
-		
-		FORWARDPROPAGATION: process	(
-												IN_VALUES,
-												CONTROL,
-												CLK
-												)
-												
-			variable NEWVALUE: CONSTRAINED_SFIXED;
-			begin
-				
-				if CLK'event and CLK ='1'then
-					NEWVALUE := to_sfixed(0 ,U_SIZE,L_SIZE);
-					for I in 0 to (NUMBER_OF_INPUTS-1) loop 
-						NEWVALUE := resize(
-						(NEWVALUE + resize(
-										(IN_VALUES(I) * NEURON_WEIGHTS(I)),
-										NEWVALUE'high,NEWVALUE'low))
-						,NEWVALUE'high,NEWVALUE'low);
-					end loop;
-					
-					NEWVALUE := resize(
-										(NEWVALUE + BIAS),
-										NEWVALUE'high,NEWVALUE'low);
-				end if;
-				
-				TO_SIGMOID <= NEWVALUE;
-		end process;
-		
-		SIGMOID: SIGMOID_SELECT
-			port map	(
+	
+	
+	ROM: SIGMOID_ROM 
+		port map		(
 						CLK				=>	CLK,
-						X_VALUE 			=>	TO_SIGMOID,
-						Y_VALUE			=>	OUTPUT
+						X_VALUE 			=>	SAMPLE_NUMBER,
+						Y_VALUE			=> Y_VALUE
 						);
-				
-end;	
+
+	IN_UNSIGNED <= unsigned(to_slv(resize(X_VALUE,3,-(NUMBER_OF_BITS-4))));
+	
+	SAMPLE_NUMBER <= 
+			std_logic_vector(to_unsigned(0, NUMBER_OF_BITS)) when X_VALUE <= -3 -- limits from the tansig function where it almost saturates
+		else
+			std_logic_vector(to_unsigned(VECTOR_SIZE, NUMBER_OF_BITS)) when X_VALUE >= 3 
+		else
+			std_logic_vector(IN_UNSIGNED);
+
+end STRUCTURE;
 --=============================================================================
 -- architecture end
---=============================================================================		
+--=============================================================================
